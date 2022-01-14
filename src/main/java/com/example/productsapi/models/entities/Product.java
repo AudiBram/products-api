@@ -1,6 +1,7 @@
 package com.example.productsapi.models.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity
@@ -11,9 +12,11 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Name is null, better to add your name")
     @Column(length = 100)
     private String name;
 
+    @NotEmpty(message = "Description is null, better to add your description")
     @Column(length = 500)
     private String description;
 
