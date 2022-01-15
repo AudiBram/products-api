@@ -3,6 +3,7 @@ package com.example.productsapi.models.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -21,6 +22,17 @@ public class Product implements Serializable {
     private String description;
 
     private Double price;
+
+    @ManyToOne
+    private Category category;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_supplier",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "supplier_id")
+    )
+    private Set<Supplier> suppliers;
 
     public Product() {
     }
@@ -68,6 +80,22 @@ public class Product implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Set<Supplier> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(Set<Supplier> suppliers) {
+        this.suppliers = suppliers;
     }
 
     @Override
